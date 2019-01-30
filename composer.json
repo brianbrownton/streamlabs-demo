@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twig/twig": "^2.0",
+        "guzzlehttp/guzzle": "~6.0",
+        "paragonie/random-lib": "^2.0"
+    }
+}

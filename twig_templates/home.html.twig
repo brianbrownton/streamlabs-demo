@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <div style="float:left; margin-right:15px">
+            <form action="/home.php" method="post">
+                Streamer name: <input type="text" name="streamer_name" value="{{ username ? username : '' }}">
+                <input type="submit" value="Find">
+            </form>
+        </div>
+        <div style="float:left"><a href="/logout.php">Logout</a></div>
+        <div style="clear:both"></div>
+    </div>
+
+    {% if found %}
+        <!-- Add a placeholder for the Twitch embed -->
+        <div id="twitch-embed"></div>
+
+        <!-- Load the Twitch embed script -->
+        <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+        <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+        <script type="text/javascript">
+          new Twitch.Embed("twitch-embed", {
+            width: 854,
+            height: 480,
+            channel: "{{username}}"
+          });
+        </script>
+
+
+        <div id="events">
+            <h3>Upcoming Events</h3>
+
+            {% if events %}
+                {% for event in events %}
+                    <div class="event">
+                        <div style="float:left; margin-right:15px">
+                            <img src="{{event.image}}">
+                        </div>
+                        <div style="float:left">
+                            <h4 style="margin:0">{{event.title}}</h4>
+                            <p style="margin-top:0">{{event.time}}</p>
+                            <p>{{event.game}}</p>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No upcoming events.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>
